@@ -18,9 +18,11 @@ export const Signin = () => {
           
             <Grid container spacing={ 2 } sx={{ mb: 2, mt: 3}}>
               <Grid item xs={ 12 } sm={ 6 }>
-                <Button variant="contained" fullWidth sx={{ border: 'none', backgroundColor: 'secondary.main'}}>
-                  Forgot password
-                </Button>
+                  <Link component={ RouterLink } to="/auth/forgot">
+                    <Button variant="contained" fullWidth sx={{ border: 'none', backgroundColor: 'secondary.main'}}>
+                        Forgot password
+                    </Button>
+                  </Link>
               </Grid>
 
               <Grid item xs={ 12 } sm={ 6 }> 
