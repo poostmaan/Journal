@@ -1,11 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { JournalApp } from "../pages";
+import { JournalPage } from "../pages/JournalPage"
+
 
 export const JournalRoutes = () => {
   return (
     <Routes>
-        <Route path="/" element={ <JournalApp /> } ></Route>
-        <Route path="/*" element={ <Navigate to="/" />} ></Route>
+        <Route path="/" element={ <JournalPage /> } />
+
+        <Route path="/*" element={ <Navigate to="/" /> } />
     </Routes>
   )
 }

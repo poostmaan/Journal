@@ -1,15 +1,19 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { AuthRoutes } from '../auth'
-import { JournalRoutes } from '../journal'
+import { Route, Routes } from 'react-router-dom';
+
+import { AuthRoutes } from '../auth/routes/AuthRoutes';
+import { JournalRoutes } from '../journal/routes/JournalRoutes';
+
 
 export const AppRouter = () => {
   return (
-    <Routes> 
-        {/* Signin and signup route */}
+    <Routes>
+
+        {/* Login y Registro */}
         <Route path="/auth/*" element={ <AuthRoutes /> } />
-        {/* JournalApp appropaterly route*/}
-        <Route path="/*" element={ <JournalRoutes />} />
+
+        {/* JournalApp */}
+        <Route path="/*" element={ <JournalRoutes /> } />
+
     </Routes>
   )
 }
