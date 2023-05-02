@@ -13,16 +13,18 @@ import {
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/useForm";
 
+const initialForm = {
+  email: "",
+  password: "",
+}
+
 export const LoginPage = () => {
   const { status, errorMessage } = useSelector((state) => state.auth);
 
   // const check = checkingAuthentication(); 
   const dispatch = useDispatch();
 
-  const { email, password, onInputChange } = useForm({
-    email: "",
-    password: "",
-  });
+  const { email, password, onInputChange } = useForm(initialForm);
 
   const isAuthenticated = useMemo(() => status === "checking", [status]);
 
@@ -30,12 +32,9 @@ export const LoginPage = () => {
     e.preventDefault();
 
     dispatch(startLoginWithEmailPassword({ email, password }));
-    // dispatch(checkingAuthentication());
-    console.log({ email, password });
   };
 
   const onGoogleSignIn = () => {
-    console.log("onGoogleSignIn");
     dispatch(startGoogleSignIn());
   };
 
@@ -45,9 +44,9 @@ export const LoginPage = () => {
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField
-              label="Correo"
+              label="email"
               type="email"
-              placeholder="correo@google.com"
+              placeholder="email@email.com"
               fullWidth
               name="email"
               // value={email}
@@ -57,9 +56,9 @@ export const LoginPage = () => {
 
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField
-              label="Contraseña"
+              label="password"
               type="password"
-              placeholder="Contraseña"
+              placeholder="123***"
               fullWidth
               name="password"
               // value={password}
@@ -103,7 +102,7 @@ export const LoginPage = () => {
 
           <Grid container direction="row" justifyContent="end">
             <Link component={RouterLink} color="inherit" to="/auth/register">
-              Crear una cuenta
+              Create a account
             </Link>
           </Grid>
         </Grid>

@@ -4,7 +4,8 @@ import { red } from '@mui/material/colors';
 export const purpleTheme = createTheme({
     palette: {
         primary: {
-            main: '#262254'
+            main: '#1a73e8',
+            contrast: "#051e34"
         },
         secondary: {
             main: '#543884'

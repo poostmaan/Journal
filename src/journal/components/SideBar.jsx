@@ -1,10 +1,19 @@
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { TurnedInNot } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { Add, PlusOne, TurnedInNot } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { SideBarItem } from './SideBarItem';
+import { setActiveNote } from '../../store/journal/journalSlice';
+import { startNewNote } from '../../store/journal/thunks';
 
 export const SideBar = ({ drawerWidth = 240 }) => {
 
   const { displayName } = useSelector( state => state.auth);
+  const { notes, isSaving, active } = useSelector( state => state.journal);
+
+  const dispatch = useDispatch();
+  const onClickNewNote = () => {
+    dispatch( startNewNote() );
+  }
 
   return (
     <Box
@@ -16,30 +25,32 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             open
             sx={{ 
                 display: { xs: 'block' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, zIndex: 1000, backgroundColor: "#051e34" }
             }}
         >
             <Toolbar>
-                <Typography variant='h6' noWrap component='div'>
+                <Typography variant='h6' noWrap component='div' color="white">
                     { displayName }
                 </Typography>
             </Toolbar>
             <Divider />
 
-            <List>
+            <List sx={{ mt: 0, color: 'white' }}>
+                
+                <ListItem disablePadding sx={{ backgroundColor: "#122c44"}}> 
+                    <ListItemButton onClick={ onClickNewNote } disabled={isSaving}> 
+                        <ListItemIcon>
+                            <Add style={{ color: 'white' }} />
+                        </ListItemIcon>
+                        <Grid container>
+                        <ListItemText primary="Add new entry" />
+                        </Grid>
+                    </ListItemButton>
+                </ListItem>
+
                 {
-                    ['Enero','Febrero','Marzo','Abril'].map( text => (
-                        <ListItem key={ text } disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <TurnedInNot />
-                                </ListItemIcon>
-                                <Grid container>
-                                    <ListItemText primary={ text } />
-                                    <ListItemText secondary={ 'Exercitation cillum irure elit consectetur.' } />
-                                </Grid>
-                            </ListItemButton>
-                        </ListItem>
+                    notes.map( note => (
+                       <SideBarItem key={ note.id } { ...note } active={active}/>
                     ))
                 }
             </List>

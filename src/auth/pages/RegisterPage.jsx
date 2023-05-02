@@ -9,16 +9,16 @@ import { useForm } from '../../hooks/useForm';
 import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 const formData = {
-  displayName: "Louis",
-  email: "louis@google.com",
-  password: "00923723",
+  displayName: "",
+  email: "",
+  password: "",
 }
 
 const formValidations = {
   // Validaciones para que muestre error en el false
-  displayName: [ (value) => value.length >= 1, 'Este campo es obligatorio'],
-  email: [ (value) => value.includes('@'), 'Debe contener una @' ],
-  password: [ (value) => value.length >= 6, 'Debe poseer almenos 6 caracteres' ],
+  displayName: [ (value) => value.length >= 1, 'Must fill this field'],
+  email: [ (value) => value.includes('@'), 'The email must contain a @' ],
+  password: [ (value) => value.length >= 6, 'The password must be at least 6 characters ' ],
 }
 
 export const RegisterPage = () => {
@@ -34,64 +34,63 @@ export const RegisterPage = () => {
     isFormValid, displayNameValid, emailValid, passwordValid
   } = useForm( formData, formValidations );
  
-  console.log( displayNameValid )
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted( true );
-
+    console.log('1')
+    console.log(isFormValid)
     // si no es valido no hagas nada
-    if( !isFormValid ) return 
+    if( !isFormValid ) return; 
 
     dispatch( startCreatingUserWithEmailPassword( formState ) );
     // console.log( formState )
   }
 
   return (
-    <AuthLayout title="Crear cuenta">
-      <h2>{ isFormValid ? 'Es valido' : 'No es valido' }</h2>
+    <AuthLayout title="Create account">
+      {/* <h2>{ isFormValid ? 'Es valido' : 'No es valido' }</h2> */}
       <form onSubmit={ handleSubmit } className="animate__animated animate__fadeIn animate__faster">
           <Grid container>
            
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
               <TextField 
-                label="Nombre completo" 
+                label="Full name" 
                 type="text" 
-                placeholder='Nombre completo' 
+                placeholder='Full name' 
                 fullWidth
                 name="displayName"
                 value={ displayName }
                 onChange={ onInputChange }
                 error={ !!displayNameValid && formSubmitted} 
-                helperText={ displayNameValid }
+                helperText={ formSubmitted && displayNameValid }
               />
             </Grid>
 
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
               <TextField 
-                label="Correo" 
+                label="Email" 
                 type="email" 
-                placeholder='correo@google.com' 
+                placeholder='email@email.com' 
                 fullWidth
                 name="email"
                 value={ email }
                 onChange={ onInputChange }
                 error={ !!emailValid && formSubmitted }
-                helperText={ emailValid }
+                helperText={ formSubmitted && emailValid }
               />
             </Grid>
 
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
               <TextField 
-                label="Contraseña" 
+                label="password" 
                 type="password" 
-                placeholder='Contraseña' 
+                placeholder='123***' 
                 fullWidth
                 name="password"
                 value={ password }
                 onChange={ onInputChange }
                 error={ !!passwordValid && formSubmitted}
-                helperText={ passwordValid } 
+                helperText={ formSubmitted && passwordValid } 
               />
             </Grid>
             
@@ -114,16 +113,16 @@ export const RegisterPage = () => {
                   disabled={registrationIsRunning}
                   fullWidth
                 >
-                  Crear cuenta
+                  Create account
                 </Button>
               </Grid>
             </Grid>
 
 
             <Grid container direction='row' justifyContent='end'>
-              <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
+              <Typography sx={{ mr: 1 }}>already have an account?</Typography>
               <Link component={ RouterLink } color='inherit' to="/auth/login">
-                ingresar
+                Login now
               </Link>
             </Grid>
 
