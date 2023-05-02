@@ -1,2 +1,4 @@
-export * from './Signin';
-export * from './Signup';
+
+
+export * from './LoginPage';
+export * from './RegisterPage';

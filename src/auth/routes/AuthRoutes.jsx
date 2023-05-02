@@ -1,14 +1,14 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { Signin, Signup } from "../pages"
-import { ForgotPassword } from "../pages/ForgotPassword"
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { LoginPage, RegisterPage } from '../pages';
+
 
 export const AuthRoutes = () => {
   return (
-    <Routes> 
-      <Route path="/signin" element={ <Signin /> }></Route>
-      <Route path="/signup" element={ <Signup /> }></Route>
-      <Route path="/forgot" element={ <ForgotPassword /> }></Route>
-      <Route path="/*" element={ <Navigate to="/auth/signin" /> }></Route>
+    <Routes>
+        <Route path="login" element={ <LoginPage /> } />
+        <Route path="register" element={ <RegisterPage /> } />
+
+        <Route path='/*' element={ <Navigate to="/auth/login" /> } />
     </Routes>
   )
 }
