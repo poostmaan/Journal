@@ -15,7 +15,7 @@ export const AppRouter = () => {
   if( status === statuses.checking) return <CheckingAuth />
 
   return (
-    <Routes location="/Journal">
+    <Routes >
 
         {
           status === statuses.authenticated
